@@ -5,6 +5,11 @@
  * /login               → sign-in (redirects to /dashboard when signed in)
  * /register            → registration (redirects to /dashboard when signed in)
  * /contact             → public contact form
+ * /features            → public feature overview (honest capability notes)
+ * /how-it-works        → public 4-step guide
+ * /about               → public about page
+ * /privacy             → public privacy policy
+ * /terms               → public terms of use
  * /dashboard           → protected; unauthenticated visitors go to /login
  * /cvs                 → protected CV upload + parsing
  * /jobs                → protected job-profile manager (Phase C)
@@ -20,10 +25,13 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import type { ReactNode } from "react";
 import { AuthProvider, useAuth } from "./lib/auth";
 import Admin, { NotAuthorized } from "./pages/Admin";
+import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Cvs from "./pages/Cvs";
 import Dashboard from "./pages/Dashboard";
+import Features from "./pages/Features";
 import History from "./pages/History";
+import HowItWorks from "./pages/HowItWorks";
 import InterviewReport from "./pages/InterviewReport";
 import InterviewRunner from "./pages/InterviewRunner";
 import InterviewSetup from "./pages/InterviewSetup";
@@ -31,8 +39,10 @@ import JobProfiles from "./pages/JobProfiles";
 import Landing from "./pages/Landing";
 import LanguageSettings from "./pages/LanguageSettings";
 import Login from "./pages/Login";
+import Privacy from "./pages/Privacy";
 import Progress from "./pages/Progress";
 import Register from "./pages/Register";
+import Terms from "./pages/Terms";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
@@ -92,6 +102,11 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
         <Route
           path="/dashboard"
           element={

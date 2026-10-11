@@ -38,6 +38,14 @@ structured feedback, and track progress — all from your own data.
   contact-message review, audit log. Bootstrapped via `ADMIN_EMAIL`.
 - **Contact** — public form, validated, rate-limited.
 
+### Pages
+
+Public: `/` (landing) · `/features` · `/how-it-works` · `/about` ·
+`/contact` · `/privacy` · `/terms` · `/login` · `/register`.
+Authenticated: `/dashboard` · `/cvs` · `/jobs` · `/interview/setup` ·
+`/interview/:id` · `/interview/:id/report` · `/settings/languages` ·
+`/progress` · `/history`. Admin: `/admin`.
+
 ## Stack
 
 | Layer  | Choice |

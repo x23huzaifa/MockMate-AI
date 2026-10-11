@@ -1,13 +1,15 @@
 /**
  * Public landing page. Honest by design: the API status pill is a real fetch,
  * and every feature bullet describes something actually built and working.
- * Nav buttons link to real routes only (/login, /register).
+ * Nav buttons link to real routes only.
  */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 import {
   navBar,
   navGhost,
+  navLink,
   navPrimary,
   pageWrap,
 } from "./styles";
@@ -72,13 +74,33 @@ export default function Landing() {
 
   return (
     <div style={pageWrap}>
-      <nav style={navBar} aria-label="Account">
-        <Link to="/login" style={navGhost}>
-          Sign in
-        </Link>
-        <Link to="/register" style={navPrimary}>
-          Get started
-        </Link>
+      <nav
+        style={{
+          ...navBar,
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+        aria-label="Site"
+      >
+        <div style={{ display: "flex", gap: "0.25rem" }}>
+          <Link to="/features" style={navLink}>
+            Features
+          </Link>
+          <Link to="/how-it-works" style={navLink}>
+            How it works
+          </Link>
+          <Link to="/about" style={navLink}>
+            About
+          </Link>
+        </div>
+        <div style={{ display: "flex", gap: "0.75rem" }}>
+          <Link to="/login" style={navGhost}>
+            Sign in
+          </Link>
+          <Link to="/register" style={navPrimary}>
+            Get started
+          </Link>
+        </div>
       </nav>
       <main style={card}>
         <p
@@ -140,21 +162,7 @@ export default function Landing() {
           </a>
         </p>
       </main>
-      <footer
-        style={{
-          maxWidth: 640,
-          margin: "0 auto",
-          padding: "0 0.25rem 2rem",
-          fontSize: "0.9rem",
-          color: "#64748B",
-          fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif",
-          textAlign: "center",
-        }}
-      >
-        <Link to="/contact" style={{ color: "#4F7CFF" }}>
-          Contact us
-        </Link>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -125,3 +125,12 @@ export const navGhost: CSSProperties = {
   color: "#182033",
   border: "1px solid #cbd5e1",
 };
+
+export const navLink: CSSProperties = {
+  fontSize: "0.9rem",
+  fontWeight: 600,
+  color: "#475569",
+  textDecoration: "none",
+  fontFamily: FONT,
+  padding: "0.5rem 0.25rem",
+};
