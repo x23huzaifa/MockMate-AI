@@ -351,3 +351,99 @@ export function isAIProviderLabel(value: unknown): value is AIProviderLabel {
     (AI_PROVIDERS as readonly string[]).includes(value)
   );
 }
+
+/**
+ * Phase 3 — AI CV Builder.
+ *
+ * `cv_documents` — a user-built CV (not an uploaded file): structured
+ * content as JSON plus the chosen template. One row per saved document;
+ * drafts are just rows the user keeps editing.
+ */
+export type CvBuilderTemplate = "modern" | "minimal" | "professional";
+
+export interface CvBuilderEducation {
+  school: string;
+  degree: string;
+  years: string;
+}
+
+export interface CvBuilderProject {
+  name: string;
+  description: string;
+}
+
+export interface CvBuilderExperience {
+  title: string;
+  company: string;
+  years: string;
+  details: string;
+}
+
+export interface CvBuilderContent {
+  fullName: string;
+  email: string;
+  phone: string;
+  headline: string;
+  summary: string;
+  targetRole: string;
+  education: CvBuilderEducation[];
+  skills: string[];
+  projects: CvBuilderProject[];
+  experience: CvBuilderExperience[];
+  certifications: string[];
+  languages: string[];
+}
+
+export const cvDocuments = mysqlTable("cv_documents", {
+  id: serial("id").primaryKey(),
+  userId: bigint("userId", { mode: "number" })
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  title: varchar("title", { length: 200 }).notNull().default("Untitled CV"),
+  template: varchar("template", { length: 32 })
+    .notNull()
+    .default("modern"),
+  content: json("content").$type<CvBuilderContent | null>(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CvDocument = typeof cvDocuments.$inferSelect;
+export type NewCvDocument = typeof cvDocuments.$inferInsert;
+
+/**
+ * Phase 3 — English communication practice.
+ *
+ * `practice_attempts` — one submitted exercise: the prompt, what the user
+ * wrote, and the feedback that was given (with the engine that produced it).
+ * History and improvement trends are computed from these rows — never
+ * fabricated.
+ */
+export type PracticeExerciseType =
+  | "introduction"
+  | "grammar"
+  | "sentence"
+  | "vocabulary";
+
+export interface PracticeFeedback {
+  /** Engine that produced the feedback — shown honestly in the UI. */
+  provider: "gemini" | "template";
+  corrections: string[];
+  improvedVersion: string | null;
+  tips: string[];
+}
+
+export const practiceAttempts = mysqlTable("practice_attempts", {
+  id: serial("id").primaryKey(),
+  userId: bigint("userId", { mode: "number" })
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  exerciseType: varchar("exerciseType", { length: 32 }).notNull(),
+  prompt: text("prompt").notNull(),
+  userText: text("userText").notNull(),
+  feedback: json("feedback").$type<PracticeFeedback | null>(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PracticeAttempt = typeof practiceAttempts.$inferSelect;
+export type NewPracticeAttempt = typeof practiceAttempts.$inferInsert;
