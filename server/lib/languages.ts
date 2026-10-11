@@ -1,5 +1,5 @@
 /**
- * Language registry for InterviewSaathi AI (Phase D — Pakistan-first).
+ * Language registry for MockMate AI (Phase D — Pakistan-first).
  *
  * HONESTY CONTRACT (user-mandated): a language is only ever labeled at the
  * support level it has actually earned. Levels:

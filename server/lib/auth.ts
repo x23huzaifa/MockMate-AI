@@ -9,7 +9,7 @@
 import { SignJWT, jwtVerify } from "jose";
 import { ENV } from "../_core/env.js";
 
-export const SESSION_COOKIE = "saathi_session";
+export const SESSION_COOKIE = "mockmate_session";
 const SESSION_TTL = "7d";
 const SESSION_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
