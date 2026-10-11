@@ -11,7 +11,7 @@
  * LANGUAGE_SUPPORT.md.
  */
 import { Router } from "express";
-import type { Request, Response } from "express";
+import type { Request } from "express";
 import { eq } from "drizzle-orm";
 import { db } from "../../drizzle/db.js";
 import { userLanguageSettings } from "../../drizzle/schema.js";

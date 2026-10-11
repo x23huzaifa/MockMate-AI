@@ -267,7 +267,8 @@ export interface SpeakDeps {
 function defaultCreateUtterance(): SpeechSynthesisUtteranceLike {
   // SpeechSynthesisUtterance exists in the DOM lib; recognition types don't,
   // which is why the rest of this module uses structural interfaces.
-  return new SpeechSynthesisUtterance();
+  // Cast: the DOM onend/onerror signatures are wider than the Like interface.
+  return new SpeechSynthesisUtterance() as unknown as SpeechSynthesisUtteranceLike;
 }
 
 /**

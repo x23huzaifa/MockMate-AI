@@ -48,8 +48,9 @@ function toPublicUser(row: typeof users.$inferSelect): PublicUser {
   return { id: row.id, name: row.name, email: row.email, role: row.role };
 }
 
-function parseIdParam(raw: string): number | null {
-  const id = Number(raw);
+function parseIdParam(raw: string | string[]): number | null {
+  const s = Array.isArray(raw) ? raw[0] : raw;
+  const id = Number(s);
   return Number.isInteger(id) && id > 0 ? id : null;
 }
 

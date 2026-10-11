@@ -25,5 +25,3 @@ CREATE TABLE IF NOT EXISTS `cvs` (
 	`updatedAt` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
 	CONSTRAINT `cvs_user_fk` FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE CASCADE
 );
-
---> statement-breakpoint

@@ -11,5 +11,3 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`updatedAt` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
 	CONSTRAINT `users_email_unique` UNIQUE(`email`)
 );
-
---> statement-breakpoint

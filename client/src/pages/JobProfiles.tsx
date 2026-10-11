@@ -18,7 +18,7 @@ import {
   link,
   pageWrap,
   subtitle,
-  title,
+  title as titleStyle,
 } from "./styles";
 
 interface JobProfile {
@@ -157,14 +157,14 @@ export default function JobProfiles() {
   return (
     <div style={pageWrap}>
       <main style={{ ...card, maxWidth: 680 }}>
-        <h1 style={title}>Job profiles</h1>
+        <h1 style={titleStyle}>Job profiles</h1>
         <p style={subtitle}>
           Describe the role you are preparing for. Its title and skills steer
           which interview questions you get.
         </p>
 
         <form onSubmit={handleSubmit}>
-          <h2 style={{ ...title, fontSize: "1.15rem" }}>
+          <h2 style={{ ...titleStyle, fontSize: "1.15rem" }}>
             {editingId === null ? "New profile" : "Edit profile"}
           </h2>
           <label style={label} htmlFor="jp-title">Job title *</label>
@@ -230,7 +230,7 @@ export default function JobProfiles() {
           </div>
         </form>
 
-        <h2 style={{ ...title, fontSize: "1.15rem", marginTop: "2rem" }}>
+        <h2 style={{ ...titleStyle, fontSize: "1.15rem", marginTop: "2rem" }}>
           My profiles
         </h2>
         {loading && <p style={subtitle}>Loading…</p>}
