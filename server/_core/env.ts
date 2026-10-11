@@ -35,11 +35,31 @@ function port(): number {
   return value;
 }
 
+function optionalEmail(name: string): string | null {
+  const raw = process.env[name];
+  if (!raw || raw.trim() === "") return null;
+  const value = raw.trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    throw new Error(
+      `[env] Invalid ${name}: "${raw}". ` +
+        `Must be a valid email address, or leave it unset for no admin.`
+    );
+  }
+  return value;
+}
+
 export const ENV = {
   DATABASE_URL: required("DATABASE_URL"),
   JWT_SECRET: required("JWT_SECRET", 32),
   NODE_ENV: process.env.NODE_ENV ?? "development",
   PORT: port(),
+  /**
+   * Optional bootstrap admin. When set, the user who registers with this
+   * email (case-insensitive) gets role='admin' and the assignment is written
+   * to audit_logs. When unset, no admin exists and /api/v1/admin is
+   * unreachable (every admin route 401/403s). See README for setup.
+   */
+  ADMIN_EMAIL: optionalEmail("ADMIN_EMAIL"),
 } as const;
 
 export type Env = typeof ENV;

@@ -7,13 +7,25 @@
  * statically. Unknown /api routes return JSON 404s; everything else falls back
  * to index.html for client-side routing.
  */
+import cookieParser from "cookie-parser";
 import express from "express";
 import fs from "node:fs";
 import path from "node:path";
 import { ENV } from "./env.js";
+import { securityHeaders } from "../middleware/securityHeaders.js";
+import authRoutes from "../routes/auth.js";
+import cvsRoutes from "../routes/cvs.js";
+import interviewsRoutes from "../routes/interviews.js";
+import jobProfilesRoutes from "../routes/jobProfiles.js";
+import settingsRoutes from "../routes/settings.js";
+import adminRoutes from "../routes/admin.js";
+import progressRoutes from "../routes/progress.js";
+import contactRoutes from "../routes/contact.js";
 
 const app = express();
+app.use(securityHeaders);
 app.use(express.json({ limit: "1mb" }));
+app.use(cookieParser());
 
 // ---------------------------------------------------------------------------
 // API routes (v1)
@@ -22,6 +34,15 @@ app.use(express.json({ limit: "1mb" }));
 app.get("/api/v1/health", (_req, res) => {
   res.json({ ok: true, service: "interview-saathi-ai" });
 });
+
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/cvs", cvsRoutes);
+app.use("/api/v1/job-profiles", jobProfilesRoutes);
+app.use("/api/v1/interviews", interviewsRoutes);
+app.use("/api/v1/settings", settingsRoutes);
+app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/progress", progressRoutes);
+app.use("/api/v1/contact", contactRoutes);
 
 // Unknown /api routes → JSON 404. Registered after all real API routes and
 // before the SPA fallback so API consumers never receive HTML.
