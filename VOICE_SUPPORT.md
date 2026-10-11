@@ -1,4 +1,4 @@
-# VOICE_SUPPORT.md — InterviewSaathi AI
+# VOICE_SUPPORT.md — MockMate AI
 
 **The whole voice feature is `experimental` until tested in real browsers.**
 Nothing below is claimed from reading specs alone: the matrix states what
