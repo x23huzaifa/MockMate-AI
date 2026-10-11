@@ -1,7 +1,7 @@
 /**
  * Authentication guard for protected routes.
  *
- * Reads the `saathi_session` httpOnly cookie, verifies the JWT, and attaches
+ * Reads the `mockmate_session` httpOnly cookie, verifies the JWT, and attaches
  * `req.user = { id, role }`. Responds 401 JSON on missing/invalid/expired
  * sessions. Authorization (ownership, roles) is enforced per-route on top.
  */
