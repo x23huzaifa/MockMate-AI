@@ -26,6 +26,7 @@ import type { ReactNode } from "react";
 import { AuthProvider, useAuth } from "./lib/auth";
 import Admin, { NotAuthorized } from "./pages/Admin";
 import About from "./pages/About";
+import Chat from "./pages/Chat";
 import Contact from "./pages/Contact";
 import Cvs from "./pages/Cvs";
 import Dashboard from "./pages/Dashboard";
@@ -128,6 +129,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <JobProfiles />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              <Chat />
             </ProtectedRoute>
           }
         />

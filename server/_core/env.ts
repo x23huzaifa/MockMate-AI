@@ -48,6 +48,40 @@ function optionalEmail(name: string): string | null {
   return value;
 }
 
+/**
+ * Optional secret: blank counts as unset (fail-closed — never hand a blank
+ * key to a provider). Unlike required(), a missing value does NOT throw;
+ * features that need it degrade honestly (see AI_SETUP.md).
+ */
+function optionalSecret(name: string): string | null {
+  const raw = process.env[name];
+  if (!raw || raw.trim() === "") return null;
+  return raw.trim();
+}
+
+function optionalModel(name: string): string {
+  const raw = process.env[name];
+  if (!raw || raw.trim() === "") return "gemini-2.5-flash";
+  return raw.trim();
+}
+
+function optionalEnum<T extends string>(
+  name: string,
+  allowed: readonly T[],
+  fallback: T
+): T {
+  const raw = process.env[name];
+  if (!raw || raw.trim() === "") return fallback;
+  const value = raw.trim().toLowerCase();
+  if (!(allowed as readonly string[]).includes(value)) {
+    throw new Error(
+      `[env] Invalid ${name}: "${raw}". ` +
+        `Must be one of: ${allowed.join(" | ")}.`
+    );
+  }
+  return value as T;
+}
+
 export const ENV = {
   DATABASE_URL: required("DATABASE_URL"),
   JWT_SECRET: required("JWT_SECRET", 32),
@@ -60,6 +94,26 @@ export const ENV = {
    * unreachable (every admin route 401/403s). See README for setup.
    */
   ADMIN_EMAIL: optionalEmail("ADMIN_EMAIL"),
+  /**
+   * Optional Google Gemini API key (AI Studio free tier — see AI_SETUP.md).
+   * When unset (or AI_PROVIDER is not "gemini"), the app runs in
+   * template/demo mode: the deterministic local engine serves interviews
+   * and /api/v1/chat answers 503. Never commit a real key.
+   */
+  GEMINI_API_KEY: optionalSecret("GEMINI_API_KEY"),
+  /** Gemini model id. Defaults to gemini-2.5-flash (best free-tier limits). */
+  GEMINI_MODEL: optionalModel("GEMINI_MODEL"),
+  /**
+   * Which AI engine interviews use: "gemini" (explicit opt-in) or
+   * "template" (default demo mode). Gemini additionally requires
+   * GEMINI_API_KEY and AI_MODE != "force-template".
+   */
+  AI_PROVIDER: optionalEnum("AI_PROVIDER", ["gemini", "template"], "template"),
+  /**
+   * "auto" (default) lets a configured Gemini run; "force-template" pins
+   * the built-in engine even when a key is set (useful for demos/tests).
+   */
+  AI_MODE: optionalEnum("AI_MODE", ["auto", "force-template"], "auto"),
 } as const;
 
 export type Env = typeof ENV;

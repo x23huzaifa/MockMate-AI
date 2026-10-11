@@ -42,9 +42,9 @@ structured feedback, and track progress — all from your own data.
 
 Public: `/` (landing) · `/features` · `/how-it-works` · `/about` ·
 `/contact` · `/privacy` · `/terms` · `/login` · `/register`.
-Authenticated: `/dashboard` · `/cvs` · `/jobs` · `/interview/setup` ·
-`/interview/:id` · `/interview/:id/report` · `/settings/languages` ·
-`/progress` · `/history`. Admin: `/admin`.
+Authenticated: `/dashboard` · `/chat` (AI career chat) · `/cvs` · `/jobs` ·
+`/interview/setup` · `/interview/:id` · `/interview/:id/report` ·
+`/settings/languages` · `/progress` · `/history`. Admin: `/admin`.
 
 ## Stack
 
@@ -68,7 +68,9 @@ pnpm install
 
 Copy `.env.example` to `.env` and set real values (see `.env.example` —
 `DATABASE_URL`, `JWT_SECRET` ≥ 32 chars; optional `ADMIN_EMAIL`, `PORT`,
-`NODE_ENV`).
+`NODE_ENV`, and the Gemini AI vars `AI_PROVIDER` / `GEMINI_API_KEY` /
+`GEMINI_MODEL` / `AI_MODE` — the app runs in template/demo mode without
+them; see `AI_SETUP.md`).
 
 Create the database:
 
@@ -77,7 +79,7 @@ Create the database:
 ```
 
 Apply the migrations (0001 users → 0002 cvs → 0003 interview →
-0004 languages → 0005 admin):
+0004 languages → 0005 admin → 0006 chat → 0007 ai_provider):
 
 ```powershell
 pnpm db:migrate
@@ -108,7 +110,8 @@ missing vs someone else's — no IDOR leak), `409` = illegal state move,
 | Auth | `POST /api/v1/auth/register` (201) · `POST /login` (200) · `POST /logout` · `GET /me` — login/register rate-limited 10/15 min/IP |
 | CVs (auth) | `POST /api/v1/cvs` (multipart `cv`, ≤ 5 MB) · `GET /` · `GET /:id` · `PATCH /:id` · `DELETE /:id` |
 | Job profiles (auth) | `POST /` · `GET /` · `GET /:id` · `PATCH /:id` · `DELETE /:id` |
-| Interviews (auth) | `POST /` (create + generate) · `GET /` (`?status=`) · `GET /:id` · `POST /:id/start` · `POST /:id/answer` · `POST /:id/pause` · `POST /:id/resume` · `POST /:id/interrupt` · `GET /:id/report` |
+| Interviews (auth) | `POST /` (create + generate) · `GET /` (`?status=`) · `GET /:id` · `POST /:id/start` · `POST /:id/answer` · `POST /:id/pause` · `POST /:id/resume` · `POST /:id/interrupt` · `GET /:id/report` — reports name the actual engine (`providers` block + `methodNote`) |
+| AI chat (auth) | `GET /api/v1/chat/status` · `POST /conversations` · `GET /conversations` (paginated) · `GET /conversations/:id` · `POST /conversations/:id/messages` · `DELETE /conversations/:id` — 30 msgs/hour/user; 503 when Gemini unconfigured (no fake fallback) |
 | Settings (auth) | `GET /api/v1/settings/languages` · `PUT /api/v1/settings/languages` |
 | Progress (auth) | `GET /api/v1/progress/overview` |
 | Contact (public) | `POST /api/v1/contact` — 5/hour/IP rate limit |
@@ -151,6 +154,7 @@ user's next login (deliberate stateless-session tradeoff).
 
 ## Docs
 
+- `AI_SETUP.md` — Gemini setup (2 min), free-tier limits, env vars, privacy, troubleshooting
 - `ARCHITECTURE.md` — system diagram, REST conventions, state machine, AI/voice/admin design
 - `ARCHITECTURE_DECISIONS.md` — ADRs for the significant decisions
 - `SECURITY.md` — route-by-route security audit + findings

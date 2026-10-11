@@ -1,1 +1,55 @@
-{"dialect": "mysql","entries": [{"breakpoints": true,"idx": 0,"tag": "0001_init","version": "7","when": 1791676800000},{"breakpoints": true,"idx": 1,"tag": "0002_cvs","version": "7","when": 1791680400000},{"breakpoints": true,"idx": 2,"tag": "0003_interview","version": "7","when": 1791684000000},{"breakpoints": true,"idx": 3,"tag": "0004_languages","version": "7","when": 1791687600000},{"breakpoints": true,"idx": 4,"tag": "0005_admin","version": "7","when": 1791691200000}],"version": "7"}
+{
+ "dialect": "mysql",
+ "entries": [
+  {
+   "breakpoints": true,
+   "idx": 0,
+   "tag": "0001_init",
+   "version": "7",
+   "when": 1791676800000
+  },
+  {
+   "breakpoints": true,
+   "idx": 1,
+   "tag": "0002_cvs",
+   "version": "7",
+   "when": 1791680400000
+  },
+  {
+   "breakpoints": true,
+   "idx": 2,
+   "tag": "0003_interview",
+   "version": "7",
+   "when": 1791684000000
+  },
+  {
+   "breakpoints": true,
+   "idx": 3,
+   "tag": "0004_languages",
+   "version": "7",
+   "when": 1791687600000
+  },
+  {
+   "breakpoints": true,
+   "idx": 4,
+   "tag": "0005_admin",
+   "version": "7",
+   "when": 1791691200000
+  },
+  {
+   "breakpoints": true,
+   "idx": 5,
+   "tag": "0006_chat",
+   "version": "7",
+   "when": 1791761257845
+  },
+  {
+   "breakpoints": true,
+   "idx": 6,
+   "tag": "0007_ai_provider",
+   "version": "7",
+   "when": 1791761257846
+  }
+ ],
+ "version": "7"
+}

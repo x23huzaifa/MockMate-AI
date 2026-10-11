@@ -150,6 +150,11 @@ export const interviewSessions = mysqlTable("interview_sessions", {
   totalQuestions: int("totalQuestions").notNull(),
   startedAt: timestamp("startedAt"),
   completedAt: timestamp("completedAt"),
+  /**
+   * Which engine generated this session's questions: "gemini" | "template".
+   * NULL = created before provider tracking (treat as "template").
+   */
+  questionProvider: varchar("questionProvider", { length: 16 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -207,6 +212,11 @@ export const answerEvaluations = mysqlTable("answer_evaluations", {
   feedbackText: text("feedbackText"),
   strengths: json("strengths").$type<string[] | null>(),
   improvements: json("improvements").$type<string[] | null>(),
+  /**
+   * Which engine produced this evaluation: "gemini" | "template".
+   * NULL = evaluated before provider tracking (treat as "template").
+   */
+  provider: varchar("provider", { length: 16 }),
   evaluatedAt: timestamp("evaluatedAt").defaultNow().notNull(),
 });
 
@@ -293,5 +303,51 @@ export function isContactStatus(value: unknown): value is ContactStatus {
   return (
     typeof value === "string" &&
     (CONTACT_STATUSES as readonly string[]).includes(value)
+  );
+}
+
+/**
+ * AI career chat schema (Gemini).
+ *
+ * Conversations belong to exactly one user; messages belong to exactly one
+ * conversation. Deleting a user cascades to their conversations and, through
+ * them, to messages. The `role` column uses a DB enum (user|assistant) —
+ * unlike status-style varchars, roles are a closed set the app never
+ * extends at runtime.
+ */
+export const chatConversations = mysqlTable("chat_conversations", {
+  id: serial("id").primaryKey(),
+  userId: bigint("userId", { mode: "number" })
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  title: varchar("title", { length: 200 }).notNull().default("New chat"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ChatConversation = typeof chatConversations.$inferSelect;
+export type NewChatConversation = typeof chatConversations.$inferInsert;
+
+export const chatMessages = mysqlTable("chat_messages", {
+  id: serial("id").primaryKey(),
+  conversationId: bigint("conversationId", { mode: "number" })
+    .notNull()
+    .references(() => chatConversations.id, { onDelete: "cascade" }),
+  role: mysqlEnum("role", ["user", "assistant"]).notNull(),
+  content: text("content").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ChatMessage = typeof chatMessages.$inferSelect;
+export type NewChatMessage = typeof chatMessages.$inferInsert;
+
+/** AI engine labels stored on interview/evaluation rows. */
+export const AI_PROVIDERS = ["gemini", "template"] as const;
+export type AIProviderLabel = (typeof AI_PROVIDERS)[number];
+
+export function isAIProviderLabel(value: unknown): value is AIProviderLabel {
+  return (
+    typeof value === "string" &&
+    (AI_PROVIDERS as readonly string[]).includes(value)
   );
 }

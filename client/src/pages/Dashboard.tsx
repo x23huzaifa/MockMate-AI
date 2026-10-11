@@ -139,6 +139,12 @@ export default function Dashboard() {
           </Link>
         </div>
         <div style={row}>
+          <span style={rowLabel}>AI career chat</span>
+          <Link to="/chat" style={link}>
+            Open →
+          </Link>
+        </div>
+        <div style={row}>
           <span style={rowLabel}>My progress</span>
           <Link to="/progress" style={link}>
             View →
