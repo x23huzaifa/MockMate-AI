@@ -1,5 +1,5 @@
 /**
- * InterviewSaathi AI — server entry point.
+ * MockMate AI — server entry point.
  *
  * Single-port setup: Express serves both the versioned REST API (/api/v1/...)
  * and the client. In development, Vite runs as Express middleware (with HMR).
@@ -32,7 +32,7 @@ app.use(cookieParser());
 // ---------------------------------------------------------------------------
 
 app.get("/api/v1/health", (_req, res) => {
-  res.json({ ok: true, service: "interview-saathi-ai" });
+  res.json({ ok: true, service: "mockmate-ai" });
 });
 
 app.use("/api/v1/auth", authRoutes);
@@ -94,12 +94,12 @@ async function start(): Promise<void> {
   await mountClient();
   app.listen(ENV.PORT, () => {
     console.log(
-      `[interview-saathi-ai] Server running on http://localhost:${ENV.PORT}/ (${ENV.NODE_ENV})`
+      `[mockmate-ai] Server running on http://localhost:${ENV.PORT}/ (${ENV.NODE_ENV})`
     );
   });
 }
 
 start().catch((err) => {
-  console.error("[interview-saathi-ai] Failed to start:", err);
+  console.error("[mockmate-ai] Failed to start:", err);
   process.exit(1);
 });

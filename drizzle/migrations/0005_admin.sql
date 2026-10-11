@@ -1,4 +1,4 @@
--- InterviewSaathi AI — 0005_admin: audit_logs + contact_messages. Phase F.
+-- MockMate AI — 0005_admin: audit_logs + contact_messages. Phase F.
 -- Hand-written to match drizzle/schema.ts exactly.
 -- MySQL 8 / MariaDB 10.4+ (XAMPP) compatible.
 --

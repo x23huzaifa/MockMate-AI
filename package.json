@@ -14,7 +14,7 @@
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.0.0"
   },
-  "description": "InterviewSaathi AI \u2014 AI-powered multilingual mock interview practice platform. Practice Smarter. Speak Confidently. Get Hired.",
+  "description": "MockMate AI \u2014 AI-powered multilingual mock interview practice platform. Practice Smarter. Speak Confidently. Get Hired.",
   "devDependencies": {
     "@types/bcryptjs": "^3.0.0",
     "@types/cookie-parser": "^1.4.7",
@@ -33,7 +33,7 @@
   "engines": {
     "node": ">=20"
   },
-  "name": "interview-saathi-ai",
+  "name": "mockmate-ai",
   "private": true,
   "scripts": {
     "build": "vite build && tsc -p tsconfig.server.json",

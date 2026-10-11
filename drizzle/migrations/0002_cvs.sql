@@ -1,4 +1,4 @@
--- InterviewSaathi AI — 0002_cvs: CV uploads table.
+-- MockMate AI — 0002_cvs: CV uploads table.
 -- Hand-written to match drizzle/schema.ts exactly.
 -- MySQL 8 / MariaDB 10.4+ (XAMPP) compatible. Idempotent.
 --

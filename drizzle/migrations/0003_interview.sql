@@ -1,4 +1,4 @@
--- InterviewSaathi AI — 0003_interview: job profiles, interview sessions,
+-- MockMate AI — 0003_interview: job profiles, interview sessions,
 -- questions, answers, evaluations.
 -- Hand-written to match drizzle/schema.ts exactly.
 -- MySQL 8 / MariaDB 10.4+ (XAMPP) compatible. Idempotent.

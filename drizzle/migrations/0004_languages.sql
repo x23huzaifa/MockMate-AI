@@ -1,4 +1,4 @@
--- InterviewSaathi AI — 0004_languages: per-user language settings +
+-- MockMate AI — 0004_languages: per-user language settings +
 -- the two remaining per-session language columns (responseLanguage,
 -- evaluationLanguage). Phase D.
 -- Hand-written to match drizzle/schema.ts exactly.

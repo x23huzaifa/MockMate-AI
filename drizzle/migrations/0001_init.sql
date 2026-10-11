@@ -1,4 +1,4 @@
--- InterviewSaathi AI — 0001_init: users table.
+-- MockMate AI — 0001_init: users table.
 -- Hand-written to match drizzle/schema.ts exactly.
 -- Runs cleanly on MySQL 8 and MariaDB 10.4+ (XAMPP) from an empty database.
 CREATE TABLE IF NOT EXISTS `users` (
