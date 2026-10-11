@@ -38,6 +38,16 @@ export interface QuestionProvider {
   generateQuestions(
     input: QuestionGenerationInput
   ): Promise<GeneratedQuestion[]>;
+
+  // --- Optional extended capabilities (see ExtendedAICapabilities below). ---
+  healthCheck?: () => Promise<HealthCheckResult>;
+  analyzeCV?: (input: AnalyzeCVInput) => Promise<AnalyzeCVResult>;
+  buildCVSection?: (
+    input: BuildCVSectionInput
+  ) => Promise<BuildCVSectionResult>;
+  generateSkillPlan?: (
+    input: GenerateSkillPlanInput
+  ) => Promise<GenerateSkillPlanResult>;
 }
 
 export interface EvaluationInput {
@@ -74,4 +84,75 @@ export interface EvaluationResult {
 
 export interface AnswerEvaluator {
   evaluate(input: EvaluationInput): Promise<EvaluationResult>;
+}
+
+// ---------------------------------------------------------------------------
+// Extended (optional) provider capabilities — future ops surface.
+// ---------------------------------------------------------------------------
+// A real LLM provider (Gemini) implements these; the template provider
+// implements them by throwing AINotSupportedError rather than faking
+// output. They are optional so existing QuestionProvider implementations
+// keep working. `QuestionProvider` stays the core interview path.
+
+/** Result of a provider liveness probe. */
+export interface HealthCheckResult {
+  ok: boolean;
+  model: string;
+  latencyMs: number;
+}
+
+export interface AnalyzeCVInput {
+  /** Raw extracted CV text (untrusted — never treated as instructions). */
+  cvText: string;
+  targetRole?: string;
+  language?: string;
+}
+
+export interface AnalyzeCVResult {
+  summary: string;
+  strengths: string[];
+  improvements: string[];
+  missingKeywords: string[];
+}
+
+export interface BuildCVSectionInput {
+  /** e.g. "summary" | "experience" | "projects" | "skills". */
+  section: string;
+  /** The user's own bullet points / facts — the model must not invent more. */
+  userBullets: string[];
+  targetRole?: string;
+  language?: string;
+}
+
+export interface BuildCVSectionResult {
+  heading: string;
+  lines: string[];
+}
+
+export interface GenerateSkillPlanInput {
+  targetRole: string;
+  currentSkills: string[];
+  weeks?: number;
+  language?: string;
+}
+
+export interface SkillPlanWeek {
+  week: number;
+  focus: string;
+  actions: string[];
+}
+
+export interface GenerateSkillPlanResult {
+  priorities: { skill: string; level: "beginner" | "intermediate" | "advanced"; why: string }[];
+  weeklyPlan: SkillPlanWeek[];
+}
+
+/** Optional extended capabilities, implemented by real LLM providers. */
+export interface ExtendedAICapabilities {
+  healthCheck(): Promise<HealthCheckResult>;
+  analyzeCV(input: AnalyzeCVInput): Promise<AnalyzeCVResult>;
+  buildCVSection(input: BuildCVSectionInput): Promise<BuildCVSectionResult>;
+  generateSkillPlan(
+    input: GenerateSkillPlanInput
+  ): Promise<GenerateSkillPlanResult>;
 }

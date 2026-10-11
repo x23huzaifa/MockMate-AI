@@ -12,8 +12,10 @@ import express from "express";
 import fs from "node:fs";
 import path from "node:path";
 import { ENV } from "./env.js";
+import { aiStartupLine, aiStatus } from "../ai/index.js";
 import { securityHeaders } from "../middleware/securityHeaders.js";
 import authRoutes from "../routes/auth.js";
+import chatRoutes from "../routes/chat.js";
 import cvsRoutes from "../routes/cvs.js";
 import interviewsRoutes from "../routes/interviews.js";
 import jobProfilesRoutes from "../routes/jobProfiles.js";
@@ -32,10 +34,15 @@ app.use(cookieParser());
 // ---------------------------------------------------------------------------
 
 app.get("/api/v1/health", (_req, res) => {
-  res.json({ ok: true, service: "mockmate-ai" });
+  // App health (always local) is separate from AI health: `ok` tells you
+  // the server is up; `ai.configured` tells you whether a real LLM (Gemini)
+  // is serving requests or the built-in template engine is. The key is
+  // never included.
+  res.json({ ok: true, service: "mockmate-ai", ai: aiStatus() });
 });
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/chat", chatRoutes);
 app.use("/api/v1/cvs", cvsRoutes);
 app.use("/api/v1/job-profiles", jobProfilesRoutes);
 app.use("/api/v1/interviews", interviewsRoutes);
@@ -96,6 +103,9 @@ async function start(): Promise<void> {
     console.log(
       `[mockmate-ai] Server running on http://localhost:${ENV.PORT}/ (${ENV.NODE_ENV})`
     );
+    // Never crashes when the key is missing — template/demo mode is the
+    // safe default (see server/ai/config.ts).
+    console.log(`[mockmate-ai] ${aiStartupLine()}`);
   });
 }
 
