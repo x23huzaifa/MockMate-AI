@@ -1,36 +1,43 @@
 # FEATURE_STATUS.md — InterviewSaathi AI
 
 Single source of truth for what exists. Updated at the end of every phase.
-"Done" means implemented → tested → fixed → retested → regression tested,
-with evidence. Anything else is "not started" or "in progress".
+
+**Status meanings (honest):** "Implemented — PC verification pending" =
+the code is written and reviewed, but `pnpm check` / `pnpm test` /
+`pnpm dev` were never executed in the author's environment (no
+node_modules here) and the user has not yet run the TESTING.md script on
+the final code. Nothing is marked "Done" without executed evidence.
 
 | Feature | Status | Notes |
 | ------- | ------ | ----- |
-| Project scaffold (configs, server, landing, docs) | Done | Phase 0, 2026-10-11 |
-| Health API (`GET /api/v1/health`) | Done | Returns `{ ok, service }` |
-| Env validation at startup | Done | `server/_core/env.ts`; clear errors, no silent fallbacks |
-| User registration / login / logout | Not started | Phase A |
-| JWT session cookies + protected routes | Not started | Phase A |
-| User profiles | Not started | Phase A/B |
-| CV upload (PDF/DOCX) + parsing | Not started | Phase B |
-| Extracted-field review + correction | Not started | Phase B |
-| Job profile manager | Not started | Phase C |
-| Interview setup flow | Not started | Phase C |
-| Text interview room (state machine) | Not started | Phase C |
-| Local template question engine | Not started | Phase C (honestly labeled, not fake AI) |
-| LLM provider interface | Not started | Phase C (interface first, real provider later) |
-| Answer evaluation + per-answer feedback | Not started | Phase C |
-| Session reports | Not started | Phase C |
-| Multilingual settings (EN/UR/Roman Urdu) | Not started | Phase D |
-| Roman Urdu handling + Urdu feedback | Not started | Phase D |
-| Language test corpus | Not started | Phase D |
-| Voice interview (STT/TTS abstraction) | Not started | Phase E |
-| Transcript preview + edit before submit | Not started | Phase E |
-| Session history (search/filter) | Not started | Phase F |
-| Progress charts from real data | Not started | Phase F |
-| Admin panel + RBAC + audit log | Not started | Phase F |
-| Contact form | Not started | Phase F |
-| Deployment docs + hardening | Not started | Phase G |
+| Project scaffold (configs, server, landing, docs) | Implemented — PC verification pending | Phase 0, 2026-10-11 |
+| Health API (`GET /api/v1/health`) | Implemented — PC verification pending | Returns `{ ok, service }` |
+| Env validation at startup | Implemented — PC verification pending | `server/_core/env.ts`; clear errors, no silent fallbacks |
+| User registration / login / logout | Implemented — PC verification pending | Phase A — implemented 2026-10-11; unit tests written, execution pending on PC (`pnpm test`) |
+| JWT session cookies + protected routes | Implemented — PC verification pending | Phase A — jose HS256, `saathi_session` httpOnly cookie, requireAuth middleware; tests written, execution pending on PC |
+| DB migration 0001_init (users table) | Implemented — PC verification pending | Hand-written SQL + drizzle journal; apply with `pnpm db:migrate` on PC |
+| DB migration 0002_cvs (cvs table) | Implemented — PC verification pending | Phase B — hand-written SQL + journal tag `0002_cvs`; apply with `pnpm db:migrate` on PC |
+| User profiles (extended) | Not started | Not in the 0–G plan; account identity (name/email/role) + CV + job profiles cover v1 needs |
+| CV upload (PDF/DOCX) + parsing | Implemented — PC verification pending | Phase B — implemented 2026-10-11; multer (memory, 5 MB cap), magic-byte validation, pdf-parse/mammoth text extraction (all pure JS), rules-based parser with honest low/medium confidence; unit tests written, execution pending on PC (`pnpm test`) |
+| Extracted-field review + correction | Implemented — PC verification pending | Phase B — GET list/detail, PATCH validated corrections, DELETE file+row; per-row ownership checks (404 for missing or another user's — no IDOR); `/cvs` UI with edit form; tests written, execution pending on PC |
+| Job profile manager | Implemented — PC verification pending | Phase C — implemented 2026-10-11; CRUD API + `/jobs` UI, ownership-guarded; tests written, execution pending on PC |
+| Interview setup flow | Implemented — PC verification pending | Phase C — implemented 2026-10-11; `/interview/setup` (profile/CV/language/count) → creates session; tests written, execution pending on PC |
+| Text interview room (state machine) | Implemented — PC verification pending | Phase C — implemented 2026-10-11; `server/lib/interviewState.ts` (8 states, illegal moves → 409), runner `/interview/:id` with pause/resume/end-early; tests written, execution pending on PC |
+| Local template question engine | Implemented — PC verification pending | Phase C — implemented 2026-10-11; 40-question bank, seeded deterministic selection, honestly labeled 'Template-based questions (beta)'; tests written, execution pending on PC |
+| LLM provider interface | Implemented — PC verification pending | Phase C — implemented 2026-10-11; `server/ai/types.ts` (QuestionProvider/AnswerEvaluator), `server/ai/index.ts` swap point; template impl behind it |
+| Answer evaluation + per-answer feedback | Implemented — PC verification pending | Phase C — implemented 2026-10-11; transparent rubric heuristic (relevance/depth/clarity/structure 1–5), feedback labeled 'heuristic, not human judgment'; tests written, execution pending on PC |
+| Session reports | Implemented — PC verification pending | Phase C — implemented 2026-10-11; `GET /:id/report` + `/interview/:id/report` UI; every number computed from stored rows, nulls shown as '—' not 0 |
+| Multilingual settings (EN/UR/Roman Urdu) | Implemented — PC verification pending | Phase D — implemented 2026-10-11; four separate settings (interview/response/feedback/evaluation) per user (`user_language_settings` + 0004 migration) and per session; `GET/PUT /api/v1/settings/languages` with honest per-setting allowlists; `/settings/languages` UI with support-level badges; InterviewSetup pre-fills from saved defaults; tests written, execution pending on PC |
+| Roman Urdu handling + Urdu feedback | Implemented — PC verification pending | Phase D — implemented 2026-10-11; 10 hand-written Urdu-script + 10 Roman-Urdu questions (exact counts asserted in tests), per-dimension feedback templates in en/ur/roman-ur (English fallback is logged, never silent), Unicode-aware tokenization + per-language stopwords/keyword lists, code-switch tolerance (mixed answers score relevance ≥ English equivalents), RTL rendering; UI chrome stays English (documented); tests written, execution pending on PC |
+| Language test corpus | Implemented — PC verification pending | Phase D — `LANGUAGE_TEST_CASES.md` (20 cases: EN/UR/RU/CS × 5) with acceptance thresholds; `LANGUAGE_SUPPORT.md` honest capability matrix; deterministic cases automated in `server/ai/multilingual.test.ts`, manual cases pending on PC |
+| Voice interview (STT/TTS abstraction) | Implemented — PC verification pending | Phase E — implemented 2026-10-11; `client/src/lib/voice.ts` (capability detection, speak/recognizer, typed VoiceError — Web Speech API only, zero new deps), 🔊 Listen per question + 🎤 mic with editable transcript in InterviewRunner, read-only voice diagnostics in LanguageSettings, `VOICE_SUPPORT.md` honest matrix; whole feature labeled experimental; unit tests written, execution pending on PC (`pnpm test`) |
+| Transcript preview + edit before submit | Implemented — PC verification pending | Phase E — interim results shown as "Hearing: …" preview; final results commit into the same editable textarea; user corrects before submitting (required, not optional); mic permission-denied / no-STT / no-speech all get plain-language messages with text fallback |
+| Session history (search/filter) | Implemented — PC verification pending | Phase F — implemented 2026-10-11; `/history` UI with search (job title/session #), status + language filters; filtering is client-side on the fetched lists (documented choice — the server list endpoint already filters in JS); tests written, execution pending on PC |
+| Progress charts from real data | Implemented — PC verification pending | Phase F — implemented 2026-10-11; `GET /api/v1/progress/overview` (totals, averages, 10-session trend, per-language/per-category breakdowns) computed from stored rows via pure `server/lib/progress.ts` (nulls, never 0); `/progress` UI with hand-rolled SVG charts, no chart lib; honest empty states; unit tests written, execution pending on PC |
+| Admin panel + RBAC + audit log | Implemented — PC verification pending | Phase F — implemented 2026-10-11; `ADMIN_EMAIL` bootstrap (fail-fast optional env), `requireAdmin` middleware (401/403), `/api/v1/admin` (users/role/sessions/contact/audit, paginated, audit-logged mutations, self-demote + last-admin guards); `/admin` UI with tabs; privacy rule — session metadata only, never transcripts/CV contents; unit tests written, execution pending on PC |
+| Contact form | Implemented — PC verification pending | Phase F — implemented 2026-10-11; public `POST /api/v1/contact` (validated, 5/hour/IP in-memory rate limit, 201 `{ok:true}`); `/contact` page + landing footer link; admin review/archive in `/admin`; unit tests written, execution pending on PC |
+| DB migration 0005_admin (audit_logs, contact_messages) | Implemented — PC verification pending | Hand-written SQL + drizzle journal tag `0005_admin`; apply with `pnpm db:migrate` on PC |
+| Deployment docs + hardening | Implemented — PC verification pending | Phase G — SECURITY.md audit + fixes (auth rate limits, security headers), README/ARCHITECTURE/TESTING rewritten, DEPLOYMENT.md, TROUBLESHOOTING.md, ARCHITECTURE_DECISIONS.md, AUTONOMOUS_IMPROVEMENTS.md, `pnpm start` script; production path never executed end-to-end |
 
 **Deliberately out of scope:** paid LLM dependency for v1, payments,
 email delivery without a configured provider, mobile apps, any form of
