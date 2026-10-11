@@ -491,7 +491,7 @@ export default function InterviewRunner() {
                     >
                       <style>
                         {
-                          "@keyframes saathi-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }"
+                          "@keyframes mockmate-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }"
                         }
                       </style>
                       <span
@@ -500,7 +500,7 @@ export default function InterviewRunner() {
                           height: 10,
                           borderRadius: "50%",
                           background: "#dc2626",
-                          animation: "saathi-pulse 1.2s ease-in-out infinite",
+                          animation: "mockmate-pulse 1.2s ease-in-out infinite",
                         }}
                       />
                       Listening… tap to stop

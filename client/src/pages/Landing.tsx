@@ -90,10 +90,10 @@ export default function Landing() {
             color: "#4F7CFF",
           }}
         >
-          WELCOME TO INTERVIEWSAATHI AI
+          WELCOME TO MOCKMATE AI
         </p>
         <h1 style={{ margin: "0.6rem 0", fontSize: "2rem" }}>
-          InterviewSaathi AI
+          MockMate AI
         </h1>
         <p
           style={{ margin: "0 0 1.5rem", color: "#64748B", fontSize: "1.05rem" }}
