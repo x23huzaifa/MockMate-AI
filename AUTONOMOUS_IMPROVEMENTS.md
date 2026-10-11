@@ -1,4 +1,4 @@
-# AUTONOMOUS_IMPROVEMENTS.md — InterviewSaathi AI
+# AUTONOMOUS_IMPROVEMENTS.md — MockMate AI
 
 Worthwhile improvements made under the autonomous mandate (beyond the
 phase specs), with P0–P3 labels. P0 = security/data/core-flow failure;

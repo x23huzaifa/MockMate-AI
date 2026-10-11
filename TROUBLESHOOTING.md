@@ -1,4 +1,4 @@
-# TROUBLESHOOTING.md — InterviewSaathi AI
+# TROUBLESHOOTING.md — MockMate AI
 
 Real issues hit while building this project, each with symptom → cause →
 fix. If you hit something new, add it here in the same format.

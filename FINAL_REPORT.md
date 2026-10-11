@@ -1,4 +1,4 @@
-# FINAL REPORT — InterviewSaathi AI (2026-10-11)
+# FINAL REPORT — MockMate AI (2026-10-11)
 
 Complete build report for the full project: Phases 0 through G.
 Status per phase: **IMPLEMENTED** (code complete) — PC verification pending.
@@ -16,7 +16,7 @@ Status per phase: **IMPLEMENTED** (code complete) — PC verification pending.
 | F | Progress dashboard, history search/filter, admin RBAC + audit log, contact form | +21 |
 | G | Security audit + hardening, docs rewrite, ADRs, deployment + troubleshooting guides | +20 |
 
-**Total: ~100 files, 8 commits on `main`** (https://github.com/x23huzaifa/interview-saathi-ai)
+**Total: ~100 files, 8 commits on `main`** (https://github.com/x23huzaifa/mockmate-ai)
 
 ## Bugs found and fixed during the build
 
@@ -40,7 +40,7 @@ Status per phase: **IMPLEMENTED** (code complete) — PC verification pending.
 ## What you need to do on your PC
 
 ```powershell
-cd D:\interview-saathi-ai-scaffold
+cd D:\mockmate-ai-scaffold
 git pull origin main
 pnpm install
 pnpm db:migrate

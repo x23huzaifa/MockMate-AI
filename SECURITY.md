@@ -1,4 +1,4 @@
-# SECURITY.md — InterviewSaathi AI
+# SECURITY.md — MockMate AI
 
 Security audit of every route, written 2026-10-11 (Phase G). Findings marked
 **[FIXED]** were changed in code during this phase; **[OK]** passed audit;

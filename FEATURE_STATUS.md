@@ -1,4 +1,4 @@
-# FEATURE_STATUS.md — InterviewSaathi AI
+# FEATURE_STATUS.md — MockMate AI
 
 Single source of truth for what exists. Updated at the end of every phase.
 
@@ -14,7 +14,7 @@ the final code. Nothing is marked "Done" without executed evidence.
 | Health API (`GET /api/v1/health`) | Implemented — PC verification pending | Returns `{ ok, service }` |
 | Env validation at startup | Implemented — PC verification pending | `server/_core/env.ts`; clear errors, no silent fallbacks |
 | User registration / login / logout | Implemented — PC verification pending | Phase A — implemented 2026-10-11; unit tests written, execution pending on PC (`pnpm test`) |
-| JWT session cookies + protected routes | Implemented — PC verification pending | Phase A — jose HS256, `saathi_session` httpOnly cookie, requireAuth middleware; tests written, execution pending on PC |
+| JWT session cookies + protected routes | Implemented — PC verification pending | Phase A — jose HS256, `mockmate_session` httpOnly cookie, requireAuth middleware; tests written, execution pending on PC |
 | DB migration 0001_init (users table) | Implemented — PC verification pending | Hand-written SQL + drizzle journal; apply with `pnpm db:migrate` on PC |
 | DB migration 0002_cvs (cvs table) | Implemented — PC verification pending | Phase B — hand-written SQL + journal tag `0002_cvs`; apply with `pnpm db:migrate` on PC |
 | User profiles (extended) | Not started | Not in the 0–G plan; account identity (name/email/role) + CV + job profiles cover v1 needs |

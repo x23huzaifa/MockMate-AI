@@ -1,4 +1,4 @@
-# LANGUAGE_TEST_CASES.md — InterviewSaathi AI
+# LANGUAGE_TEST_CASES.md — MockMate AI
 
 Documented multilingual test corpus (Phase D). Each case states the input,
 the expected behavior, and the acceptance bar. A language is marked

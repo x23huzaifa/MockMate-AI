@@ -1,4 +1,4 @@
-# InterviewSaathi AI
+# MockMate AI
 
 **Practice Smarter. Speak Confidently. Get Hired.**
 

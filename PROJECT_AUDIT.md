@@ -1,4 +1,4 @@
-# PROJECT_AUDIT.md — InterviewSaathi AI
+# PROJECT_AUDIT.md — MockMate AI
 
 Date: 2026-10-11. Phase 0 (scaffold).
 

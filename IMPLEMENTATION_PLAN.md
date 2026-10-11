@@ -1,4 +1,4 @@
-# IMPLEMENTATION_PLAN.md — InterviewSaathi AI
+# IMPLEMENTATION_PLAN.md — MockMate AI
 
 Realistic phased plan. Each phase ends with exit criteria; do not start the
 next phase until the current one's criteria are met with evidence.

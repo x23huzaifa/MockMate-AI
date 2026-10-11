@@ -1,4 +1,4 @@
-# ARCHITECTURE_DECISIONS.md — InterviewSaathi AI
+# ARCHITECTURE_DECISIONS.md — MockMate AI
 
 Concise ADRs for the significant decisions. One paragraph each:
 context → decision → consequences.

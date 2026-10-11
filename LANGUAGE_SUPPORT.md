@@ -1,4 +1,4 @@
-# LANGUAGE_SUPPORT.md — InterviewSaathi AI
+# LANGUAGE_SUPPORT.md — MockMate AI
 
 The honest capability matrix for Pakistan-first multilingual support.
 **Rule: a language is only ever labeled at the support level it has earned.**

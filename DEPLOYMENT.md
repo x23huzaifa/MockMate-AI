@@ -1,4 +1,4 @@
-# DEPLOYMENT.md — InterviewSaathi AI
+# DEPLOYMENT.md — MockMate AI
 
 Honest production notes. This app has been **built but never deployed** —
 treat everything below as the documented path, not a verified runbook.

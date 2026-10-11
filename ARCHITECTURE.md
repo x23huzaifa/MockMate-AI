@@ -1,4 +1,4 @@
-# ARCHITECTURE.md — InterviewSaathi AI
+# ARCHITECTURE.md — MockMate AI
 
 ## System diagram
 
@@ -58,7 +58,7 @@ empty-string fallbacks for secrets, ever.
 
 ## Separation rule (critical)
 
-InterviewSaathi AI is a **fully independent project**:
+MockMate AI is a **fully independent project**:
 
 - Own repository, own database (`interview_saathi`), own APIs, own
   credentials.
@@ -178,7 +178,7 @@ whole feature is labeled `experimental` until real-browser tested — see
 ```
 GET /api/v1/health
   → express.json() parses body
-  → route handler returns { ok: true, service: "interview-saathi-ai" }
+  → route handler returns { ok: true, service: "mockmate-ai" }
   → landing page fetches it on load and renders API status honestly
 ```
 

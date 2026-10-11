@@ -1,4 +1,4 @@
-# TESTING.md — InterviewSaathi AI
+# TESTING.md — MockMate AI
 
 The single ordered verification script. Run top to bottom on the dev PC
 (Windows + XAMPP MySQL). **Honest status: unit tests were written in an
@@ -70,7 +70,7 @@ that is the validation working, not a bug.
 ## Step 6 — manual API checklists (needs Steps 1–5)
 
 ### Auth
-1. `POST /api/v1/auth/register` valid → **201** `{ user }` + `saathi_session` httpOnly cookie.
+1. `POST /api/v1/auth/register` valid → **201** `{ user }` + `mockmate_session` httpOnly cookie.
 2. Same email → **409** "Email already registered."
 3. Short password → **400** with message.
 4. `POST /login` wrong password → **401** "Invalid email or password." (generic — no enumeration).
