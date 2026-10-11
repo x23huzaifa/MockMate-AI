@@ -13,6 +13,7 @@ import {
   navPrimary,
   pageWrap,
 } from "./styles";
+import { SiteLogo } from "../components/logos";
 
 type HealthState = "checking" | "online" | "offline";
 
@@ -82,7 +83,10 @@ export default function Landing() {
         }}
         aria-label="Site"
       >
-        <div style={{ display: "flex", gap: "0.25rem" }}>
+        <div style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
+          <Link to="/" style={{ ...navLink, marginRight: "0.5rem" }}>
+            <SiteLogo />
+          </Link>
           <Link to="/features" style={navLink}>
             Features
           </Link>

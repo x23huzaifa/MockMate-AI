@@ -145,6 +145,24 @@ export default function Dashboard() {
           </Link>
         </div>
         <div style={row}>
+          <span style={rowLabel}>AI CV builder</span>
+          <Link to="/cv-builder" style={link}>
+            Open →
+          </Link>
+        </div>
+        <div style={row}>
+          <span style={rowLabel}>Skill gap analysis</span>
+          <Link to="/skill-gap" style={link}>
+            Open →
+          </Link>
+        </div>
+        <div style={row}>
+          <span style={rowLabel}>English practice</span>
+          <Link to="/english-practice" style={link}>
+            Open →
+          </Link>
+        </div>
+        <div style={row}>
           <span style={rowLabel}>My progress</span>
           <Link to="/progress" style={link}>
             View →

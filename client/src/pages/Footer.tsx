@@ -43,6 +43,9 @@ export default function Footer() {
       <Link to="/terms" style={linkStyle}>
         Terms
       </Link>
+      <Link to="/logo-concepts" style={linkStyle}>
+        Logo concepts
+      </Link>
     </footer>
   );
 }

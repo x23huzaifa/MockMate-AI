@@ -20,6 +20,10 @@
  * /progress            → protected progress overview (Phase F)
  * /history             → protected session history (Phase F)
  * /admin               → admin-only panel (Phase F)
+ * /cv-builder          → protected AI CV builder (Phase 3)
+ * /skill-gap           → protected skill gap analysis (Phase 3)
+ * /english-practice    → protected English practice (Phase 3)
+ * /logo-concepts       → public logo concept gallery (Phase 3)
  */
 import { Navigate, Route, Routes } from "react-router-dom";
 import type { ReactNode } from "react";
@@ -28,6 +32,7 @@ import Admin, { NotAuthorized } from "./pages/Admin";
 import About from "./pages/About";
 import Chat from "./pages/Chat";
 import Contact from "./pages/Contact";
+import CvBuilder from "./pages/CvBuilder";
 import Cvs from "./pages/Cvs";
 import Dashboard from "./pages/Dashboard";
 import Features from "./pages/Features";
@@ -37,12 +42,15 @@ import InterviewReport from "./pages/InterviewReport";
 import InterviewRunner from "./pages/InterviewRunner";
 import InterviewSetup from "./pages/InterviewSetup";
 import JobProfiles from "./pages/JobProfiles";
+import EnglishPractice from "./pages/EnglishPractice";
 import Landing from "./pages/Landing";
 import LanguageSettings from "./pages/LanguageSettings";
 import Login from "./pages/Login";
+import LogoConcepts from "./pages/LogoConcepts";
 import Privacy from "./pages/Privacy";
 import Progress from "./pages/Progress";
 import Register from "./pages/Register";
+import SkillGap from "./pages/SkillGap";
 import Terms from "./pages/Terms";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
@@ -108,6 +116,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/logo-concepts" element={<LogoConcepts />} />
         <Route
           path="/dashboard"
           element={
@@ -185,6 +194,30 @@ export default function App() {
           element={
             <ProtectedRoute>
               <History />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cv-builder"
+          element={
+            <ProtectedRoute>
+              <CvBuilder />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/skill-gap"
+          element={
+            <ProtectedRoute>
+              <SkillGap />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/english-practice"
+          element={
+            <ProtectedRoute>
+              <EnglishPractice />
             </ProtectedRoute>
           }
         />

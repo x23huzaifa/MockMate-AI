@@ -13,6 +13,7 @@ import {
   navPrimary,
   pageWrap,
 } from "./styles";
+import { SiteLogo } from "../components/logos";
 
 const card: React.CSSProperties = {
   maxWidth: 680,
@@ -50,9 +51,9 @@ export default function Privacy() {
       >
         <Link
           to="/"
-          style={{ ...navLink, fontWeight: 800, color: "#182033", fontSize: "1rem" }}
+          style={navLink}
         >
-          MockMate AI
+          <SiteLogo />
         </Link>
         <div style={{ display: "flex", gap: "0.75rem" }}>
           <Link to="/login" style={navGhost}>

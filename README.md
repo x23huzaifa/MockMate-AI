@@ -44,7 +44,9 @@ Public: `/` (landing) · `/features` · `/how-it-works` · `/about` ·
 `/contact` · `/privacy` · `/terms` · `/login` · `/register`.
 Authenticated: `/dashboard` · `/chat` (AI career chat) · `/cvs` · `/jobs` ·
 `/interview/setup` · `/interview/:id` · `/interview/:id/report` ·
-`/settings/languages` · `/progress` · `/history`. Admin: `/admin`.
+`/settings/languages` · `/progress` · `/history` · `/cv-builder` (AI CV builder) ·
+`/skill-gap` · `/english-practice`. Admin: `/admin`.
+Public: `/logo-concepts` (logo gallery, footer link).
 
 ## Stack
 
@@ -114,6 +116,9 @@ missing vs someone else's — no IDOR leak), `409` = illegal state move,
 | AI chat (auth) | `GET /api/v1/chat/status` · `POST /conversations` · `GET /conversations` (paginated) · `GET /conversations/:id` · `POST /conversations/:id/messages` · `DELETE /conversations/:id` — 30 msgs/hour/user; 503 when Gemini unconfigured (no fake fallback) |
 | Settings (auth) | `GET /api/v1/settings/languages` · `PUT /api/v1/settings/languages` |
 | Progress (auth) | `GET /api/v1/progress/overview` |
+| CV builder (auth) | `GET /api/v1/cv-builder` · `POST /` · `GET /:id` · `PUT /:id` · `DELETE /:id` · `POST /:id/duplicate` · `POST /assist` (AI writing assist — 20/hr/user; 503 when no AI provider) |
+| Skill gap (auth) | `GET /api/v1/skill-gap/inputs` · `POST /analyze` (20/hr/user) — demonstrated/needs-evidence/missing + weekly plan |
+| English practice (auth) | `GET /api/v1/english-practice/exercises` · `POST /attempts` (20/hr/user) · `GET /attempts` · `GET /stats` |
 | Contact (public) | `POST /api/v1/contact` — 5/hour/IP rate limit |
 | Admin (admin) | `GET /users` · `PATCH /users/:id/role` · `GET /sessions` (metadata only) · `GET /contact` · `PATCH /contact/:id` · `GET /audit` — all paginated, mutations audit-logged |
 
