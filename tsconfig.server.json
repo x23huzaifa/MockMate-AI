@@ -1,0 +1,1 @@
+{"compilerOptions":{"module":"NodeNext","moduleResolution":"NodeNext","noEmit":false,"outDir":"dist-server","rootDir":"."},"extends":"./tsconfig.json","include":["server","drizzle"]}
