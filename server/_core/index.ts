@@ -16,10 +16,13 @@ import { aiStartupLine, aiStatus } from "../ai/index.js";
 import { securityHeaders } from "../middleware/securityHeaders.js";
 import authRoutes from "../routes/auth.js";
 import chatRoutes from "../routes/chat.js";
+import cvBuilderRoutes from "../routes/cvBuilder.js";
 import cvsRoutes from "../routes/cvs.js";
+import englishPracticeRoutes from "../routes/englishPractice.js";
 import interviewsRoutes from "../routes/interviews.js";
 import jobProfilesRoutes from "../routes/jobProfiles.js";
 import settingsRoutes from "../routes/settings.js";
+import skillGapRoutes from "../routes/skillGap.js";
 import adminRoutes from "../routes/admin.js";
 import progressRoutes from "../routes/progress.js";
 import contactRoutes from "../routes/contact.js";
@@ -50,6 +53,9 @@ app.use("/api/v1/settings", settingsRoutes);
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/progress", progressRoutes);
 app.use("/api/v1/contact", contactRoutes);
+app.use("/api/v1/cv-builder", cvBuilderRoutes);
+app.use("/api/v1/skill-gap", skillGapRoutes);
+app.use("/api/v1/english-practice", englishPracticeRoutes);
 
 // Unknown /api routes → JSON 404. Registered after all real API routes and
 // before the SPA fallback so API consumers never receive HTML.

@@ -1,5 +1,8 @@
 # AI_SETUP.md — Google Gemini setup for MockMate AI
 
+
+> **Model note (verified 2026-10-12):** `gemini-2.5-flash` is no longer available to new API keys — Google's API returns 404 directing to `gemini-3.8-flash`. The default is now `gemini-3.8-flash`.
+
 MockMate AI ships with a **built-in template engine** (demo mode) that works
 with zero configuration. Setting up **Google Gemini** (free tier) upgrades
 interviews to real LLM-generated questions/evaluations and unlocks the
@@ -17,11 +20,11 @@ No code changes needed — only two lines in `.env`, then restart.
    AI_PROVIDER=gemini
    GEMINI_API_KEY=AIza...paste-your-key-here
    ```
-   (`GEMINI_MODEL` is optional — it defaults to `gemini-2.5-flash`.)
+   (`GEMINI_MODEL` is optional — it defaults to `gemini-3.8-flash`.)
 5. Restart the dev server (`Ctrl+C`, then `pnpm dev`).
 6. Watch the startup log — you should see:
    ```text
-   [mockmate-ai] AI provider: gemini (model gemini-2.5-flash)
+   [mockmate-ai] AI provider: gemini (model gemini-3.8-flash)
    ```
    If you instead see `template/demo mode`, the key wasn't picked up
    (typo, wrong `.env` file, or server not restarted).
@@ -34,8 +37,8 @@ lines) and restart. Or keep the key but pin templates temporarily with
 
 | Model | Requests/min | Requests/day | Notes |
 |---|---|---|---|
-| `gemini-2.5-flash` (default) | ~15 | ~1,500 | Best free-tier limits; default |
-| `gemini-2.5-flash-lite` | ~15 | ~1,500 | Faster/cheaper, slightly weaker |
+| `gemini-3.8-flash` (default) | ~15 | ~1,500 | Best free-tier limits; default |
+| `gemini-3.8-flash-lite` | ~15 | ~1,500 | Faster/cheaper, slightly weaker |
 | `gemini-3.5-flash` | lower | lower | Newer, tighter free quota |
 | `gemini-3.6-flash` | lower | lower | Newer, tighter free quota |
 | `gemini-2.5-pro` | ~5 | ~50 | Avoid as default — quota too strict |
@@ -53,7 +56,7 @@ shows *"AI is busy, try again in a moment"*.
 | Variable | Values | Default | Effect |
 |---|---|---|---|
 | `GEMINI_API_KEY` | key from AI Studio | *(unset)* | Enables the real LLM |
-| `GEMINI_MODEL` | model id | `gemini-2.5-flash` | Which Gemini model to call |
+| `GEMINI_MODEL` | model id | `gemini-3.8-flash` | Which Gemini model to call |
 | `AI_PROVIDER` | `gemini` \| `template` | `template` | Explicit opt-in for Gemini |
 | `AI_MODE` | `auto` \| `force-template` | `auto` | `force-template` pins the built-in engine |
 

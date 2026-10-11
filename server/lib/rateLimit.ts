@@ -110,3 +110,31 @@ export const authLimiter = createRateLimiter(
   AUTH_RATE_LIMIT_MAX_HITS,
   AUTH_RATE_LIMIT_WINDOW_MS
 );
+
+// ---------------------------------------------------------------------------
+// AI chat: 30 requests per hour per user (each message = one LLM call).
+// Keyed by user id (authenticated endpoint), not IP.
+// ---------------------------------------------------------------------------
+
+export const CHAT_RATE_LIMIT_MAX_HITS = 30;
+export const CHAT_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+export const chatLimiter = createRateLimiter(
+  CHAT_RATE_LIMIT_MAX_HITS,
+  CHAT_RATE_LIMIT_WINDOW_MS
+);
+
+// ---------------------------------------------------------------------------
+// AI-assist endpoints (CV builder section assist, skill plans): 20 calls per
+// hour per user. Each call = one LLM request; keeps the shared free-tier
+// quota (Gemini ~1,500 req/day) usable for everyone.
+// Keyed by user id (authenticated endpoints), not IP.
+// ---------------------------------------------------------------------------
+
+export const AI_ASSIST_RATE_LIMIT_MAX_HITS = 20;
+export const AI_ASSIST_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+export const aiAssistLimiter = createRateLimiter(
+  AI_ASSIST_RATE_LIMIT_MAX_HITS,
+  AI_ASSIST_RATE_LIMIT_WINDOW_MS
+);

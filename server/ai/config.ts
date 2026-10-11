@@ -17,7 +17,7 @@
  *   otherwise → "template" (demo mode)
  */
 
-export const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
+export const DEFAULT_GEMINI_MODEL = "gemini-3.8-flash";
 
 export type AIProviderName = "gemini" | "template";
 export type AIMode = "auto" | "force-template";
@@ -25,7 +25,7 @@ export type AIMode = "auto" | "force-template";
 export interface AiConfig {
   /** Null when GEMINI_API_KEY is unset/blank → template provider is used. */
   apiKey: string | null;
-  /** Model id, e.g. "gemini-2.5-flash". Never blank. */
+  /** Model id, e.g. "gemini-3.8-flash". Never blank. */
   model: string;
   /** Requested provider. Default "template" (explicit opt-in for Gemini). */
   provider: AIProviderName;

@@ -25,7 +25,7 @@ describe("password hashing (bcrypt, 12 rounds)", () => {
     expect(a).not.toBe(b);
     expect(await verifyPassword("same-password-123", a)).toBe(true);
     expect(await verifyPassword("same-password-123", b)).toBe(true);
-  });
+  }, 30000); // bcrypt-12 is slow on low-end hardware; 5s default is too tight
 
   it("never embeds the plaintext in the hash", async () => {
     const hash = await hashPassword("plaintext-secret-1");

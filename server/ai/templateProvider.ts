@@ -16,16 +16,24 @@
  * file later without touching any call site.
  */
 import type {
+  AnalyzeCVInput,
+  AnalyzeCVResult,
   AnswerEvaluator,
+  BuildCVSectionInput,
+  BuildCVSectionResult,
   DimensionScores,
   EvaluationInput,
   EvaluationResult,
   GeneratedQuestion,
+  GenerateSkillPlanInput,
+  GenerateSkillPlanResult,
+  HealthCheckResult,
   QuestionCategory,
   QuestionGenerationInput,
   QuestionProvider,
 } from "./types.js";
 import { feedbackStringsFor } from "./feedbackTemplates.js";
+import { AINotSupportedError } from "./errors.js";
 
 interface BankEntry {
   id: number;
@@ -240,6 +248,39 @@ export class TemplateQuestionProvider implements QuestionProvider {
       text: q.text,
       rubricHints: [...q.rubricHints],
     }));
+  }
+
+  // --- Extended capabilities: NOT faked by the template engine. ---------
+  // Each throws AINotSupportedError so callers get an honest "configure an
+  // AI provider" message instead of fabricated analysis.
+
+  async healthCheck(): Promise<HealthCheckResult> {
+    throw new AINotSupportedError(
+      "Provider health checks need a configured AI provider (Gemini). " +
+        "The template engine is local and has no remote health."
+    );
+  }
+
+  async analyzeCV(_input: AnalyzeCVInput): Promise<AnalyzeCVResult> {
+    throw new AINotSupportedError(
+      "CV analysis is only available with a configured AI provider (Gemini)."
+    );
+  }
+
+  async buildCVSection(
+    _input: BuildCVSectionInput
+  ): Promise<BuildCVSectionResult> {
+    throw new AINotSupportedError(
+      "CV section writing is only available with a configured AI provider (Gemini)."
+    );
+  }
+
+  async generateSkillPlan(
+    _input: GenerateSkillPlanInput
+  ): Promise<GenerateSkillPlanResult> {
+    throw new AINotSupportedError(
+      "Skill plans are only available with a configured AI provider (Gemini)."
+    );
   }
 }
 

@@ -61,7 +61,7 @@ function optionalSecret(name: string): string | null {
 
 function optionalModel(name: string): string {
   const raw = process.env[name];
-  if (!raw || raw.trim() === "") return "gemini-2.5-flash";
+  if (!raw || raw.trim() === "") return "gemini-3.8-flash";
   return raw.trim();
 }
 
@@ -101,7 +101,7 @@ export const ENV = {
    * and /api/v1/chat answers 503. Never commit a real key.
    */
   GEMINI_API_KEY: optionalSecret("GEMINI_API_KEY"),
-  /** Gemini model id. Defaults to gemini-2.5-flash (best free-tier limits). */
+  /** Gemini model id. Defaults to gemini-3.8-flash (best free-tier limits). */
   GEMINI_MODEL: optionalModel("GEMINI_MODEL"),
   /**
    * Which AI engine interviews use: "gemini" (explicit opt-in) or
