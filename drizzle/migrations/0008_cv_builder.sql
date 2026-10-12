@@ -6,7 +6,7 @@
 -- users; deleting a user cascades. Re-runnable: IF NOT EXISTS.
 CREATE TABLE IF NOT EXISTS `cv_documents` (
   `id` bigint AUTO_INCREMENT NOT NULL,
-  `userId` bigint NOT NULL,
+  `userId` bigint unsigned NOT NULL,
   `title` varchar(200) NOT NULL DEFAULT 'Untitled CV',
   `template` varchar(32) NOT NULL DEFAULT 'modern',
   `content` json,

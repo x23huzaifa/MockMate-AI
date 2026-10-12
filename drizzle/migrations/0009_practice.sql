@@ -7,7 +7,7 @@
 -- IF NOT EXISTS.
 CREATE TABLE IF NOT EXISTS `practice_attempts` (
   `id` bigint AUTO_INCREMENT NOT NULL,
-  `userId` bigint NOT NULL,
+  `userId` bigint unsigned NOT NULL,
   `exerciseType` varchar(32) NOT NULL,
   `prompt` text NOT NULL,
   `userText` text NOT NULL,
