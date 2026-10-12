@@ -5,7 +5,10 @@
  * Run: pnpm test
  * Status: WRITTEN, NOT EXECUTED in this environment (no node_modules here).
  */
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+// Low bcrypt cost for tests: bcrypt-12 takes ~5s/hash on slow hardware.
+vi.stubEnv("BCRYPT_ROUNDS", "4");
 import { hashPassword, verifyPassword } from "./password.js";
 
 describe("password hashing (bcrypt, 12 rounds)", () => {
@@ -25,7 +28,7 @@ describe("password hashing (bcrypt, 12 rounds)", () => {
     expect(a).not.toBe(b);
     expect(await verifyPassword("same-password-123", a)).toBe(true);
     expect(await verifyPassword("same-password-123", b)).toBe(true);
-  }, 30000); // bcrypt-12 is slow on low-end hardware; 5s default is too tight
+  });
 
   it("never embeds the plaintext in the hash", async () => {
     const hash = await hashPassword("plaintext-secret-1");

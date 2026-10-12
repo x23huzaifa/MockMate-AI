@@ -8,10 +8,19 @@
  */
 import bcrypt from "bcryptjs";
 
-const SALT_ROUNDS = 12;
+/**
+ * Bcrypt cost factor. Default 12 (production). Tests may set BCRYPT_ROUNDS=4
+ * via env — bcrypt-12 takes ~5s per hash on low-end hardware, which exceeds
+ * the default 5s vitest timeout. Production never sets this; 12 stays.
+ */
+function saltRounds(): number {
+  const raw = Number(process.env.BCRYPT_ROUNDS);
+  if (Number.isInteger(raw) && raw >= 4 && raw <= 15) return raw;
+  return 12;
+}
 
 export async function hashPassword(password: string): Promise<string> {
-  return bcrypt.hash(password, SALT_ROUNDS);
+  return bcrypt.hash(password, saltRounds());
 }
 
 export async function verifyPassword(

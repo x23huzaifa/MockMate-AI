@@ -49,7 +49,7 @@ describe("resolveAiConfig", () => {
     const c = resolveAiConfig();
     expect(c.provider).toBe("template");
     expect(c.apiKey).toBeNull();
-    expect(c.model).toBe("gemini-2.5-flash");
+    expect(c.model).toBe("gemini-3.8-flash"); // 2.5-flash deprecated for new keys (verified 2026-10-12)
     expect(c.mode).toBe("auto");
   });
 

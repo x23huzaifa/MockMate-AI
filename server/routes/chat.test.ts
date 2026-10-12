@@ -41,6 +41,9 @@ vi.mock("../../drizzle/db.js", () => {
         return c;
       },
       orderBy() {
+        // Test-fake approximation: every orderBy in chat.ts is id-desc
+        // (or updatedAt-desc, which matches insertion order here).
+        c._rows = [...c._rows].sort((a, b) => b.id - a.id);
         return c;
       },
       limit(n: number) {
